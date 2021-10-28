@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Project/PHP/PHPProject.php to edit this template
+-->
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+    </head>
+    <body>
+        <?php
+        
+        if (isset($_POST['submit'])) {
+            $con = mysqli_connect("localhost", "root", "", "prueba_conjunta");
+            if (mysqli_connect_errno()) {
+                echo "Fallo en la conexion con la BBDD";
+            } else {
+
+               $id=$_POST["id"];
+             
+               $puertas=$_POST["puertas"];
+               $combustible=$_POST["combustible"];
+               $ordenador=$_POST["ordenador"];
+               $motorizacion=$_POST["motorizacion"];
+               $elevalunas=$_POST["elevalunas"];
+               $cierreCentralizado=$_POST["cierreCentralizado"];
+               $anioMatriculacion=$_POST["anioMatriculacion"];
+               $pinturaMetalizada=$_POST["pinturaMetalizada"];
+               $color=$_POST["color"];
+               $cambioAutomatico=$_POST["cambioAutomatico"];
+               $precioFinal=$_POST["precioFinal"];
+               $km0=$_POST["km0"];
+               $pathFoto=$_POST["pathFoto"];
+
+                $sql = "UPDATE INTO autos (puertas,combustible,ordenador,motorizacion,elevalunas,cierreCentralizado,anioMatriculacion,pinturaMetalizada,color,"
+                        . "cambioAutomatico,precioFinal,km0,pathFoto) VALUES "
+                        . "('$puertas','$combustible','$ordenador','$motorizacion','$elevalunas',"
+                        . "'$cierreCentralizado','$anioMatriculacion','$pinturaMetalizada','$color','$cambioAutomatico','$precioFinal','$km0','$pathFoto') WHERE id='$id";
+
+                if (mysqli_query($con, $sql)) {
+                    echo "Valores updateados correctamente";
+                } else {
+                    echo "Fallo en el updateo de datos";
+                }
+                mysqli_close($con);
+            }
+        } 
+        ?>
+    </body>
+</html>
