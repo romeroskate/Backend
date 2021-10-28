@@ -1,0 +1,76 @@
+
+<?php
+
+//Cambia la conn aquí
+
+//Variables conn
+$server = "localhost";
+$database = "alberto";
+$user = "root";
+$password = "";
+
+// Crear conn
+$conn = mysqli_connect($server, $user, $password, $database);
+if (!$conn) {
+
+    die("Connection fallida: " . mysqli_connect_error());
+}
+
+
+//////////////////////////////////////////////////
+$marca = $_POST['marca'];
+$modelo = $_POST['modelo'];
+
+
+/////marca,modelo,precio,color
+
+
+
+
+////TODO
+
+$sql1 = "SELECT * FROM autos ";
+$array1 = mysqli_query($conn, $sql1);
+
+if ($array1->num_rows > 0) {
+
+    while ($row = $array1->fetch_assoc()) {
+        echo  " Marca: " . $row["marca"] . " modelo " . $row["modelo"] . " precio:" . $row["precio"] . " color:" . $row["color"] . "<br>";
+    }
+} else {
+    echo "0 results";
+}
+
+
+
+////MARCA
+
+$sql2 = "SELECT * FROM autos WHERE marca = '$marca' ";
+$array2 = mysqli_query($conn, $sql2);
+
+if ($array2->num_rows > 0) {
+
+    while ($row = $array2->fetch_assoc()) {
+        echo  " Marca: " . $row["marca"] . " modelo " . $row["modelo"] . " precio:" . $row["precio"] . " color:" . $row["color"] . "<br>";
+    }
+} else {
+    echo "0 results";
+}
+
+
+
+//MODELO
+$sql3 = "SELECT * FROM autos WHERE modelo = '$modelo' AND marca = '$marca' ";
+$array3 = mysqli_query($conn, $sql3);
+
+if ($array3->num_rows > 0) {
+
+    while ($row = $array3->fetch_assoc()) {
+        echo  " Marca: " . $row["marca"] . " modelo " . $row["modelo"] . " precio:" . $row["precio"] . " color:" . $row["color"] . "<br>";
+    }
+} else {
+    echo "0 results";
+}
+
+mysqli_close($conn);
+?>
