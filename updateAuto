@@ -1,24 +1,16 @@
-<!DOCTYPE html>
-<!--
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/Project/PHP/PHPProject.php to edit this template
--->
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title></title>
-    </head>
-    <body>
-        <?php
-        
+  <?php
+        //COMPROBAMOS QUE SE TRAEN DATOS DEL SUBMIT
         if (isset($_POST['submit'])) {
+            //ESTABLECEMOS LA CONEXION
             $con = mysqli_connect("localhost", "root", "", "prueba_conjunta");
+            
+            //SI HAY ERROR QUE MUESTRE UN MENSAJE DE FALLO
             if (mysqli_connect_errno()) {
                 echo "Fallo en la conexion con la BBDD";
             } else {
 
+                //DECLARAMOS LA VARIABLE CON LOS VALORES DEL FORMULARIO DE EDITAR AUTOS
                $id=$_POST["id"];
-             
                $puertas=$_POST["puertas"];
                $combustible=$_POST["combustible"];
                $ordenador=$_POST["ordenador"];
@@ -33,19 +25,20 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Project/PHP/PHPProject.php to edi
                $km0=$_POST["km0"];
                $pathFoto=$_POST["pathFoto"];
 
+               //GUARDAMOS EN UNA VARIABLE LA INSTRUCCION DEL UPDATE
                 $sql = "UPDATE INTO autos (puertas,combustible,ordenador,motorizacion,elevalunas,cierreCentralizado,anioMatriculacion,pinturaMetalizada,color,"
                         . "cambioAutomatico,precioFinal,km0,pathFoto) VALUES "
                         . "('$puertas','$combustible','$ordenador','$motorizacion','$elevalunas',"
                         . "'$cierreCentralizado','$anioMatriculacion','$pinturaMetalizada','$color','$cambioAutomatico','$precioFinal','$km0','$pathFoto') WHERE id='$id";
 
+                //COMPROBAMOS SI LOS VALORES SE HAN UPDATEADO O SI HA HABIDO ALGUN FALLO
                 if (mysqli_query($con, $sql)) {
                     echo "Valores updateados correctamente";
                 } else {
                     echo "Fallo en el updateo de datos";
                 }
+                //CERRAMOS LA CONEXION
                 mysqli_close($con);
             }
         } 
         ?>
-    </body>
-</html>
